@@ -7,6 +7,7 @@ import java.util.UUID;
 class Subplot extends Territory
 {
 	private Plot parent;
+	Settlement settlement;
 
 	Subplot(String name, UUID owner, List<UUID> trusted, List<BoundingBox> area)
 	{
@@ -16,8 +17,9 @@ class Subplot extends Territory
 		this.area = area;
 	}
 
-	void setParent(Plot parent)
+	void setParents(Plot parent, Settlement settlement)
 	{
 		this.parent = parent;
+		this.settlement = settlement;
 	}
 }

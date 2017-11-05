@@ -37,9 +37,9 @@ class Utils
 	static List<UUID> readUUIDs(ByteBuffer b)
 	{
 		UUID uuids[] = new UUID[b.get()];
-		for (short num = b.getShort(); num > 0; num--)
+		for (short i = 0; i < uuids.length; i++)
 		{
-			uuids[num] = Utils.readUUID(b);
+			uuids[i] = Utils.readUUID(b);
 		}
 		return Arrays.stream(uuids).collect(Collectors.toList());
 	}

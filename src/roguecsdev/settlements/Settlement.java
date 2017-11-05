@@ -30,7 +30,7 @@ class Settlement extends Territory
 			List<BoundingBox> plotArea = Utils.readBounds(b);
 
 			Subplot subplots[] = new Subplot[b.get()];
-			for (int i = subplots.length; i > 0; i--)
+			for (int i = 0; i < subplots.length; i++)
 			{
 				String subplotName = Utils.readStr(b);
 				UUID subplotOwner = Utils.readUUID(b);

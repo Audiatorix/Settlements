@@ -21,7 +21,7 @@ class Plot extends Territory
 
 		for (Subplot child : children)
 		{
-			child.setParent(this);
+			child.setParents(this, parent);
 		}
 	}
 }
