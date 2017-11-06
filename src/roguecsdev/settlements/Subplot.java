@@ -1,25 +1,26 @@
 package roguecsdev.settlements;
 
-import java.util.List;
-import java.util.UUID;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
 
 
 class Subplot extends Territory
 {
-	private Plot parent;
-	Settlement settlement;
-
-	Subplot(String name, UUID owner, List<UUID> trusted, List<BoundingBox> area)
+	Subplot(ByteBuffer b)
 	{
-		this.name = name;
-		this.owner = owner;
-		this.trusted = trusted;
-		this.area = area;
+		name = Utils.readStr(b);
+		owner = Utils.readUUID(b);
+		trusted = Utils.readUUIDs(b);
+		area = Utils.readBounds(b);
+		tax = b.getDouble();
+
+		// Shall remain empty
+		children = new ArrayList<>();
 	}
 
-	void setParents(Plot parent, Settlement settlement)
+	@Override
+	int getSize()
 	{
-		this.parent = parent;
-		this.settlement = settlement;
+		return 28 + name.getBytes().length + trusted.size() * 16 + area.size() * 48;
 	}
 }

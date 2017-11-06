@@ -61,6 +61,16 @@ class BoundingBox
 		ez = source.ez;
 	}
 
+	void serializeInto(ByteBuffer b)
+	{
+		b.putLong(sx);
+		b.putLong(sy);
+		b.putLong(sz);
+		b.putLong(ex);
+		b.putLong(ey);
+		b.putLong(ez);
+	}
+
 	boolean overlaps(BoundingBox other)
 	{
 		return ex >= other.sx && other.ex >= sx

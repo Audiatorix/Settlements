@@ -29,15 +29,13 @@ class Utils
 
 	static UUID readUUID(ByteBuffer b)
 	{
-		byte data[] = new byte[16];
-		b.get(data);
-		return UUID.nameUUIDFromBytes(data);
+		return new UUID(b.getLong(), b.getLong());
 	}
 
 	static List<UUID> readUUIDs(ByteBuffer b)
 	{
 		UUID uuids[] = new UUID[b.get()];
-		for (short i = 0; i < uuids.length; i++)
+		for (byte i = 0; i < uuids.length; i++)
 		{
 			uuids[i] = Utils.readUUID(b);
 		}
