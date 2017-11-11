@@ -1,4 +1,6 @@
-package roguecsdev.settlements;
+package roguecsdev.settlements.Territories;
+
+import roguecsdev.settlements.Utils;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -18,9 +20,8 @@ class Subplot extends Territory
 		children = new ArrayList<>();
 	}
 
-	@Override
-	int getSize()
+	public int getSize()
 	{
-		return 28 + name.getBytes().length + trusted.size() * 16 + area.size() * 48;
+		return getBaseSize() - 1;
 	}
 }

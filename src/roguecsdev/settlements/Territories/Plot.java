@@ -1,4 +1,6 @@
-package roguecsdev.settlements;
+package roguecsdev.settlements.Territories;
+
+import roguecsdev.settlements.Utils;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -22,6 +24,4 @@ class Plot extends Territory
 		}
 		children = Arrays.stream(subplots).collect(Collectors.toList());
 	}
-
-
 }

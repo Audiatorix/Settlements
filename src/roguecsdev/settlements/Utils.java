@@ -7,17 +7,17 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 
-class Utils
+public class Utils
 {
 // SECTION settlement file parsing helpers
-	static String readStr(ByteBuffer b)
+	public static String readStr(ByteBuffer b)
 	{
 		byte strData[] = new byte[b.get()];
 		b.get(strData);
 		return String.valueOf(strData);
 	}
 
-	static List<BoundingBox> readBounds(ByteBuffer b)
+	public static List<BoundingBox> readBounds(ByteBuffer b)
 	{
 		BoundingBox boxes[] = new BoundingBox[b.get()];
 		for (byte i = 0; i < boxes.length; i++)
@@ -27,15 +27,15 @@ class Utils
 		return Arrays.stream(boxes).collect(Collectors.toList());
 	}
 
-	static UUID readUUID(ByteBuffer b)
+	public static UUID readUUID(ByteBuffer b)
 	{
 		return new UUID(b.getLong(), b.getLong());
 	}
 
-	static List<UUID> readUUIDs(ByteBuffer b)
+	public static List<UUID> readUUIDs(ByteBuffer b)
 	{
-		UUID uuids[] = new UUID[b.get()];
-		for (byte i = 0; i < uuids.length; i++)
+		UUID uuids[] = new UUID[b.getShort()];
+		for (short i = 0; i < uuids.length; i++)
 		{
 			uuids[i] = Utils.readUUID(b);
 		}

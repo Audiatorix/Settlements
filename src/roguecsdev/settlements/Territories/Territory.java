@@ -1,6 +1,7 @@
-package roguecsdev.settlements;
+package roguecsdev.settlements.Territories;
 
 import org.bukkit.Location;
+import roguecsdev.settlements.BoundingBox;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -10,18 +11,19 @@ import java.util.UUID;
 
 abstract class Territory
 {
-	String name;
-	UUID owner;
-	List<UUID> trusted;
-	List<BoundingBox> area;
-	List<Territory> children;
+	public String name;
+	public UUID owner;
+	public List<UUID> trusted;
+	public List<BoundingBox> area;
+	protected List<Territory> children;
 	// Note that this is the tax applied by the parent area to this area
-	double tax;
+	public double tax;
 
-	int getSize()
+	public abstract int getSize();
+
+	protected int getBaseSize()
 	{
-		return 29 + name.getBytes().length + trusted.size() * 16 + area.size() * 48 +
-			children.stream().mapToInt(c -> c.getSize()).sum();
+		return 30 + name.getBytes().length + trusted.size() * 16 + area.size() * 24;
 	}
 
 	void serializeInto(ByteBuffer b)
@@ -45,10 +47,26 @@ abstract class Territory
 			box.serializeInto(b);
 		}
 
-		b.putShort((short) children.size());
-		for (Territory c : children)
+		if (!(this instanceof Duchy))
 		{
-			c.serializeInto(b);
+			b.putDouble(tax);
+		}
+
+		if (this instanceof Settlement)
+		{
+			Settlement s = (Settlement) this;
+			b.putInt(s.home.getBlockX());
+			b.putInt(s.home.getBlockY());
+			b.putInt(s.home.getBlockZ());
+		}
+
+		if (!(this instanceof Subplot))
+		{
+			b.putShort((short) children.size());
+			for (Territory c : children)
+			{
+				c.serializeInto(b);
+			}
 		}
 	}
 
